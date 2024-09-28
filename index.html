@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Gestão de Horas Extras</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Sistema de Gestão de Horas Extras</h1>
+    </header>
+
+    <div class="container">
+        <div id="clock"></div>
+        <div class="dashboard">
+            <div class="card">
+                <h2>Registro de Ponto</h2>
+                <input type="text" id="fullName" placeholder="Nome Completo" required>
+                <input type="text" id="position" placeholder="Cargo" required>
+                <input type="text" id="employeeId" placeholder="Número de Identificação" required>
+                <button id="checkInOut" class="btn">Registrar Entrada</button>
+            </div>
+            <div class="card">
+                <h2>Horas Extras</h2>
+                <p>Total de horas extras este mês: <span id="overtimeTotal">0</span></p>
+                <button id="requestOvertime" class="btn">Solicitar Hora Extra</button>
+            </div>
+            <div class="card">
+                <h2>Banco de Horas</h2>
+                <p>Saldo atual: <span id="hourBank">0</span> horas</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Histórico de Registros</h2>
+            <table id="historyTable">
+                <tr>
+                    <th>Data</th>
+                    <th>Nome</th>
+                    <th>Cargo</th>
+                    <th>ID</th>
+                    <th>Entrada</th>
+                    <th>Saída</th>
+                    <th>Total</th>
+                    <th>Horas Extras</th>
+                </tr>
+                <!-- Registros serão adicionados aqui via JavaScript -->
+            </table>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
