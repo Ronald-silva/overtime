@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="img/hora extra icone.png" type="image/x-icon">
     <title>Sistema de Gestão de Horas Extras</title>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -34,19 +35,25 @@
 
         <div class="card">
             <h2>Histórico de Registros</h2>
-            <table id="historyTable">
-                <tr>
-                    <th>Data</th>
-                    <th>Nome</th>
-                    <th>Cargo</th>
-                    <th>ID</th>
-                    <th>Entrada</th>
-                    <th>Saída</th>
-                    <th>Total</th>
-                    <th>Horas Extras</th>
-                </tr>
-                <!-- Registros serão adicionados aqui via JavaScript -->
-            </table>
+            <div style="overflow-x: auto;">
+                <table id="historyTable">
+                    <thead>
+                        <tr>
+                            <th>Data</th>
+                            <th>Nome</th>
+                            <th>Cargo</th>
+                            <th>ID</th>
+                            <th>Entrada</th>
+                            <th>Saída</th>
+                            <th>Total</th>
+                            <th>Horas Extras</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Registros serão adicionados aqui via JavaScript -->
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 

@@ -30,8 +30,8 @@ document.getElementById('checkInOut').addEventListener('click', function() {
         this.textContent = "Registrar Entrada";
         
         // Adicionar ao histórico
-        const table = document.getElementById('historyTable');
-        const row = table.insertRow(1);
+        const table = document.getElementById('historyTable').getElementsByTagName('tbody')[0];
+        const row = table.insertRow(0);
         row.insertCell(0).textContent = now.toLocaleDateString();
         row.insertCell(1).textContent = currentEmployee.fullName;
         row.insertCell(2).textContent = currentEmployee.position;
