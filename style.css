@@ -1,136 +1,162 @@
+/* Reset básico */
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    font-family: 'Arial', sans-serif;
 }
 
+/* Estilização geral da página */
 body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
     background-color: #f4f4f4;
     color: #333;
-}
-
-.container {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
+    font-size: 16px;
+    line-height: 1.6;
     padding: 20px;
 }
 
+/* Header */
 header {
-    background: #35424a;
-    color: #ffffff;
-    padding: 1rem;
+    background-color: #35424a;
+    color: white;
+    padding: 20px;
     text-align: center;
-    border-bottom: #e8491d 3px solid;
+    border-bottom: 4px solid #e8491d;
 }
 
 header h1 {
+    font-size: 1.8rem;
     margin: 0;
-    font-size: 1.5rem;
 }
 
+/* Container geral */
+.container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo do relógio */
 #clock {
     font-size: 1.5rem;
     text-align: center;
-    margin: 1rem 0;
+    margin-bottom: 20px;
+    font-weight: bold;
+    color: #35424a;
 }
 
+/* Dashboard */
 .dashboard {
     display: flex;
     flex-wrap: wrap;
-    gap: 1rem;
-    margin-bottom: 1rem;
+    gap: 20px;
+    margin-bottom: 20px;
 }
 
 .card {
     flex: 1 1 300px;
-    background: #fff;
-    padding: 1rem;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative;
 }
 
 .card h2 {
+    margin-bottom: 20px;
     color: #35424a;
-    margin-bottom: 0.5rem;
     font-size: 1.2rem;
+    font-weight: bold;
 }
 
 input[type="text"],
 input[type="number"] {
     width: 100%;
-    padding: 0.5rem;
-    margin-bottom: 0.5rem;
+    padding: 10px;
+    margin-bottom: 15px;
     border: 1px solid #ddd;
     border-radius: 4px;
+    font-size: 1rem;
+    background: #f9f9f9;
 }
 
+/* Botões */
 .btn {
     display: inline-block;
-    padding: 0.5rem 1rem;
-    background: #e8491d;
-    color: #ffffff;
-    text-decoration: none;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+    background-color: #e8491d;
+    color: white;
+    padding: 12px 20px;
     font-size: 1rem;
-    transition: background 0.3s ease;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s;
+    width: 100%;
 }
 
 .btn:hover {
-    background: #35424a;
+    background-color: #35424a;
 }
 
+#snap {
+    background-color: #007bff;
+    margin-top: 10px;
+}
+
+#snap:hover {
+    background-color: #0056b3;
+}
+
+/* Estilo para a captura de vídeo e canvas */
+#video {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+#canvas {
+    display: none; /* O canvas pode ser escondido se você quiser apenas capturar a imagem */
+}
+
+/* Tabela de Histórico */
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 1rem;
-    background: #fff;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    margin-top: 20px;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 th, td {
+    padding: 12px;
     text-align: left;
-    padding: 0.5rem;
     border-bottom: 1px solid #ddd;
 }
 
 th {
     background-color: #35424a;
     color: white;
-    font-weight: bold;
 }
 
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Responsividade */
 @media (max-width: 768px) {
     .dashboard {
         flex-direction: column;
     }
 
-    .card {
-        flex-basis: 100%;
-    }
-
     table {
         font-size: 0.9rem;
-    }
-
-    th, td {
-        padding: 0.3rem;
-    }
-
-    .container {
-        padding: 10px;
-    }
-
-    header h1 {
-        font-size: 1.2rem;
-    }
-
-    #clock {
-        font-size: 1.2rem;
     }
 }
 
@@ -140,11 +166,15 @@ th {
     }
 
     th, td {
-        padding: 0.2rem;
+        padding: 8px;
     }
 
     .btn {
         width: 100%;
-        margin-bottom: 0.5rem;
+        margin-bottom: 10px;
+    }
+
+    header h1 {
+        font-size: 1.4rem;
     }
 }

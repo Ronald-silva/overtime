@@ -1,13 +1,46 @@
 const mongoose = require('mongoose');
 
-const registroSchema = new mongoose.Schema({
-  nome: { type: String, required: true },
-  cargo: { type: String, required: true },
-  employeeId: { type: String, required: true },
-  entrada: { type: Date, required: true },
-  saida: { type: Date } // Permite que o campo de saída seja opcional, registrando-o depois
+const RegistroSchema = new mongoose.Schema({
+  nome: {
+    type: String,
+    required: true
+  },
+  cargo: {
+    type: String,
+    required: true
+  },
+  employeeId: {
+    type: String,
+    required: true
+  },
+  entrada: {
+    type: Date,
+    default: Date.now
+  },
+  saida: {
+    type: Date
+  },
+  latitudeEntrada: {
+    type: Number,
+    required: true
+  },
+  longitudeEntrada: {
+    type: Number,
+    required: true
+  },
+  latitudeSaida: {
+    type: Number
+  },
+  longitudeSaida: {
+    type: Number
+  },
+  fotoEntrada: {
+    type: String, // Salva em formato base64
+    required: true
+  },
+  fotoSaida: {
+    type: String // Salva em formato base64
+  }
 });
 
-const Registro = mongoose.model('Registro', registroSchema);
-
-module.exports = Registro;
+module.exports = mongoose.model('Registro', RegistroSchema);

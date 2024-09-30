@@ -3,20 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="img/hora extra icone.png" type="image/x-icon">
+    <link rel="shortcut icon" href="img/hora-extra-icone.png" type="image/x-icon">
     <title>Sistema de Gestão de Horas Extras</title>
     <link rel="stylesheet" href="style.css">
-    
-    
 </head>
 <body>
+
+    <!-- Cabeçalho -->
     <header>
         <h1>Sistema de Gestão de Horas Extras</h1>
     </header>
 
+    <!-- Container Principal -->
     <div class="container">
+
+        <!-- Relógio Atual -->
         <div id="clock"></div>
+
+        <!-- Dashboard com Cards -->
         <div class="dashboard">
+            <!-- Card de Registro de Ponto -->
             <div class="card">
                 <h2>Registro de Ponto</h2>
                 <input type="text" id="fullName" placeholder="Nome Completo" required>
@@ -24,19 +30,31 @@
                 <input type="text" id="employeeId" placeholder="Número de Identificação" required>
                 <button id="checkIn" class="btn">Registrar Entrada</button>
                 <button id="checkOut" class="btn">Registrar Saída</button>
-              </div>
-              
+            </div>
+
+            <!-- Card para Exibir Horas Extras -->
             <div class="card">
                 <h2>Horas Extras</h2>
                 <p>Total de horas extras este mês: <span id="overtimeTotal">0</span></p>
                 <button id="requestOvertime" class="btn">Solicitar Hora Extra</button>
             </div>
+
+            <!-- Card para Exibir Banco de Horas -->
             <div class="card">
                 <h2>Banco de Horas</h2>
                 <p>Saldo atual: <span id="hourBank">0</span> horas</p>
             </div>
         </div>
 
+        <!-- Captura de Foto -->
+        <div class="card">
+            <h2>Captura de Foto para Validação</h2>
+            <video id="video" width="320" height="240" autoplay></video>
+            <button id="snap" class="btn">Tirar Foto</button>
+            <canvas id="canvas" width="320" height="240"></canvas>
+        </div>
+
+        <!-- Histórico de Registros -->
         <div class="card">
             <h2>Histórico de Registros</h2>
             <div style="overflow-x: auto;">
@@ -61,10 +79,7 @@
         </div>
     </div>
 
-    <!-- Firebase Initialization and Scripts -->
+    <!-- Scripts -->
     <script src="script.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
-
 </body>
 </html>
