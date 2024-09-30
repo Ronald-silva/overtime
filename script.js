@@ -1,63 +1,107 @@
+// Atualizar relógio
 function updateClock() {
     const now = new Date();
     document.getElementById('clock').textContent = now.toLocaleTimeString();
-}
-setInterval(updateClock, 1000);
-
-// Simulação de registro de ponto
-let isCheckedIn = false;
-let checkInTime = null;
-let currentEmployee = null;
-document.getElementById('checkInOut').addEventListener('click', function() {
-    const now = new Date();
+  }
+  setInterval(updateClock, 1000);
+  
+  // Registrar entrada
+  document.getElementById('checkIn').addEventListener('click', function () {
     const fullName = document.getElementById('fullName').value;
     const position = document.getElementById('position').value;
     const employeeId = document.getElementById('employeeId').value;
-
-    if (!isCheckedIn) {
-        if (!fullName || !position || !employeeId) {
-            alert("Por favor, preencha todos os campos antes de registrar a entrada.");
-            return;
-        }
-        checkInTime = now;
-        currentEmployee = { fullName, position, employeeId };
-        this.textContent = "Registrar Saída";
-        alert(`Entrada registrada para ${fullName} às ${now.toLocaleTimeString()}`);
-    } else {
-        const duration = (now - checkInTime) / 3600000; // horas
-        const overtime = Math.max(duration - 8, 0); // considerando 8h como jornada normal
-        alert(`Saída registrada para ${currentEmployee.fullName}. Duração: ${duration.toFixed(2)}h. Horas extras: ${overtime.toFixed(2)}h`);
-        this.textContent = "Registrar Entrada";
-        
-        // Adicionar ao histórico
-        const table = document.getElementById('historyTable').getElementsByTagName('tbody')[0];
-        const row = table.insertRow(0);
-        row.insertCell(0).textContent = now.toLocaleDateString();
-        row.insertCell(1).textContent = currentEmployee.fullName;
-        row.insertCell(2).textContent = currentEmployee.position;
-        row.insertCell(3).textContent = currentEmployee.employeeId;
-        row.insertCell(4).textContent = checkInTime.toLocaleTimeString();
-        row.insertCell(5).textContent = now.toLocaleTimeString();
-        row.insertCell(6).textContent = duration.toFixed(2) + "h";
-        row.insertCell(7).textContent = overtime.toFixed(2) + "h";
-
-        // Atualizar total de horas extras
-        const currentOvertime = parseFloat(document.getElementById('overtimeTotal').textContent);
-        document.getElementById('overtimeTotal').textContent = (currentOvertime + overtime).toFixed(2);
-
-        // Limpar campos de entrada
+  
+    if (fullName === '' || position === '' || employeeId === '') {
+      alert('Preencha todos os campos!');
+      return;
+    }
+  
+    // Enviar dados para o backend
+    fetch('http://localhost:5000/api/registros/entrada', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        nome: fullName,
+        cargo: position,
+        employeeId: employeeId,
+      }),
+    })
+      .then(response => response.json())
+      .then(data => {
+        alert('Entrada registrada com sucesso!');
+        // Limpar campos de input
         document.getElementById('fullName').value = '';
         document.getElementById('position').value = '';
         document.getElementById('employeeId').value = '';
-        currentEmployee = null;
+        loadHistory(); // Atualizar histórico de registros
+      })
+      .catch(error => {
+        console.error('Erro ao registrar a entrada:', error);
+        alert('Erro ao registrar a entrada. Verifique sua conexão com o servidor.');
+      });
+  });
+  
+  // Registrar saída
+  document.getElementById('checkOut').addEventListener('click', function () {
+    const employeeId = document.getElementById('employeeId').value;
+  
+    if (employeeId === '') {
+      alert('Preencha o campo de ID do funcionário!');
+      return;
     }
-    isCheckedIn = !isCheckedIn;
-});
-
-// Simulação de solicitação de hora extra
-document.getElementById('requestOvertime').addEventListener('click', function() {
-    const hours = prompt("Quantas horas extras você deseja solicitar?");
-    if (hours) {
-        alert(`Solicitação de ${hours} horas extras enviada para aprovação.`);
-    }
-});
+  
+    // Enviar solicitação de saída para o backend
+    fetch('http://localhost:5000/api/registros/saida', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        employeeId: employeeId,
+      }),
+    })
+      .then(response => response.json())
+      .then(data => {
+        alert('Saída registrada com sucesso!');
+        // Limpar campos de input
+        document.getElementById('fullName').value = '';
+        document.getElementById('position').value = '';
+        document.getElementById('employeeId').value = '';
+        loadHistory(); // Atualizar histórico de registros
+      })
+      .catch(error => {
+        console.error('Erro ao registrar a saída:', error);
+        alert('Erro ao registrar a saída. Verifique sua conexão com o servidor.');
+      });
+  });
+  
+  // Carregar histórico de registros
+  function loadHistory() {
+    const tableBody = document.getElementById('historyTable').getElementsByTagName('tbody')[0];
+    tableBody.innerHTML = ''; // Limpar tabela antes de preencher
+  
+    fetch('http://localhost:5000/api/registros')
+      .then(response => response.json())
+      .then(data => {
+        data.forEach(item => {
+          const row = tableBody.insertRow();
+          row.insertCell(0).textContent = new Date(item.entrada).toLocaleDateString();
+          row.insertCell(1).textContent = item.nome;
+          row.insertCell(2).textContent = item.cargo;
+          row.insertCell(3).textContent = item.employeeId;
+          row.insertCell(4).textContent = new Date(item.entrada).toLocaleTimeString();
+          row.insertCell(5).textContent = item.saida ? new Date(item.saida).toLocaleTimeString() : 'Ainda no trabalho';
+          row.insertCell(6).textContent = item.saida ? ((new Date(item.saida) - new Date(item.entrada)) / 3600000).toFixed(2) + 'h' : 'N/A';
+          row.insertCell(7).textContent = item.saida ? Math.max(((new Date(item.saida) - new Date(item.entrada)) / 3600000) - 8, 0).toFixed(2) + 'h' : 'N/A';
+        });
+      })
+      .catch(error => {
+        console.error('Erro ao carregar histórico de registros:', error);
+      });
+  }
+  
+  // Carregar histórico de registros ao iniciar
+  loadHistory();
+  

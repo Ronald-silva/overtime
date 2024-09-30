@@ -6,6 +6,8 @@
     <link rel="shortcut icon" href="img/hora extra icone.png" type="image/x-icon">
     <title>Sistema de Gestão de Horas Extras</title>
     <link rel="stylesheet" href="style.css">
+    
+    
 </head>
 <body>
     <header>
@@ -20,8 +22,10 @@
                 <input type="text" id="fullName" placeholder="Nome Completo" required>
                 <input type="text" id="position" placeholder="Cargo" required>
                 <input type="text" id="employeeId" placeholder="Número de Identificação" required>
-                <button id="checkInOut" class="btn">Registrar Entrada</button>
-            </div>
+                <button id="checkIn" class="btn">Registrar Entrada</button>
+                <button id="checkOut" class="btn">Registrar Saída</button>
+              </div>
+              
             <div class="card">
                 <h2>Horas Extras</h2>
                 <p>Total de horas extras este mês: <span id="overtimeTotal">0</span></p>
@@ -57,6 +61,10 @@
         </div>
     </div>
 
+    <!-- Firebase Initialization and Scripts -->
     <script src="script.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
+
 </body>
 </html>
